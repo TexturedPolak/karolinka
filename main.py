@@ -185,7 +185,7 @@ class Szyfr:
 
 
 # TESTY
-testowy_obiekt = Szyfr("KAROLINKA", True)
+testowy_obiekt = Szyfr("KAROLINKA")
 
 # TEST 1
 if testowy_obiekt.odszyfruj(testowy_obiekt.szyfruj("HARCERZ I HARCERKA")) == "HARCERZ I HARCERKA":
