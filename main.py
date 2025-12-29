@@ -96,9 +96,10 @@ Wejście:
     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 ]
 Wyjście:
-"8x2 1x9 7x8 3x9 5x9 7x1 7x3     9x9     8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
+"8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
 """
 def szyfrowanie(tekst_do_zaszyfrowania: str, tabela: list):
+    tekst_do_zaszyfrowania = tekst_do_zaszyfrowania.upper()
     zaszyfrowany_tekst = ""
     słowa = tekst_do_zaszyfrowania.split()
     numer_słowa = 0
@@ -113,11 +114,77 @@ def szyfrowanie(tekst_do_zaszyfrowania: str, tabela: list):
                 zaszyfrowany_tekst+=" "
             numer_znaku += 1
         # Dodawanie tabulatora pomiędzy słowami (oprócz ostatniego)
-        if numer_znaku != (len(słowo)-1):
+        if numer_słowa != (len(słowa)-1):
                 zaszyfrowany_tekst+="\t"
         numer_słowa += 1
-    print(zaszyfrowany_tekst)
+    return zaszyfrowany_tekst
 
+"""
+Odszyfrowuje tekst_do_odszyfrowania zgodnie z założeniami.
+Wymaga podania w argumencie tabela obiektu wygenerowanego przez funkcję utworz_tabele.
+Zwraca odszyfrowany tekst zgodnie z założeniami.
+Wejście:
+"8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2",
+[ 
+    ['K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T'],
+    ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], 
+    ['R', 'S', 'T', 'U', 'W', 'Y', 'Z', 'A', 'B'], 
+    ['O', 'P', 'R', 'S', 'T', 'U', 'W', 'Y', 'Z'], 
+    ['L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U'], 
+    ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R'], 
+    ['N', 'O', 'P', 'R', 'S', 'T', 'U', 'W', 'Y'], 
+    ['K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T'], 
+    ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+]
+Wyjście:
+"HARCERZ I HARCERKA"
+"""
+def odszyfrowanie(tekst_do_odszyfrowania: str, tabela: list):
+    odszyfrowany_tekst = ""
+    wyrazy = tekst_do_odszyfrowania.split("\t")
+    numer_wyrazu = 0
+    for wyraz in wyrazy:
+        litery = wyraz.split()
+        for litera in litery:
+            kolumna, wiersz = litera.split("x")
+            kolumna = int(kolumna)
+            wiersz = int(wiersz)
+            odszyfrowany_tekst += tabela[wiersz-1][kolumna-1]
+        if numer_wyrazu != (len(wyrazy)-1):
+                odszyfrowany_tekst+=" "
+        numer_wyrazu += 1
+    return odszyfrowany_tekst
 
-print(utworz_tabele("KAROLINKA"))
-szyfrowanie("HARCERZ I HARCERKA", tabela=utworz_tabele("KAROLINKA"))
+# Debug i testy
+
+# Test i debug tworzenia tabeli
+[print(x) for x in utworz_tabele("KAROLINKA")]
+
+# Debug szyfrowania
+print(repr(szyfrowanie("HARCERZ I HARCERKA", 
+                  tabela=utworz_tabele("KAROLINKA")))
+    )
+
+# Debug i test odszyfrowania
+print(
+    odszyfrowanie("8x2 1x9 9x6 3x2 5x2 4x7 9x4\t9x9\t8x9 1x2 1x3 3x9 5x9 7x8 1x8 1x2", 
+                  tabela=utworz_tabele("KAROLINKA"))
+    )
+
+# Testy
+
+# Test 1
+print("Test 1:")
+print(
+    odszyfrowanie("8x2 1x9 9x6 3x2 5x2 4x7 9x4\t9x9\t8x9 1x2 1x3 3x9 5x9 7x8 1x8 1x2", 
+                  tabela=utworz_tabele("KAROLINKA")) == "HARCERZ I HARCERKA"
+    )
+
+# Test 2
+print("Test 2:")
+print(
+    odszyfrowanie(szyfrowanie("HARCERZ I HARCERKA", tabela=utworz_tabele("KAROLINKA")), 
+                  tabela=utworz_tabele("KAROLINKA")) == "HARCERZ I HARCERKA"
+    )
+
+print(repr(szyfrowanie("HARCERZ I HARCERKA", tabela=utworz_tabele("KAROLINKA"))))
