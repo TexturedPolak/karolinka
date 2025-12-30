@@ -1,11 +1,13 @@
 import random
 class Szyfr:
-    def __init__(self, słowo_klucz, debug=False):  
-        self.alfabet = "ABCDEFGHIJKLMNOPRSTUWYZ"
-        self.słowo_klucz = słowo_klucz
+    def __init__(self, słowo_klucz, alfabet="ABCDEFGHIJKLMNOPRSTUWYZ", debug=False): 
         self.debug = debug
+        # Szybki test musi być uruchomiany od razu po debug - inaczej nadpisze alfabet, słowo_klucz i tabelę
+        self.szybki_test() 
+        self.alfabet = alfabet
+        self.słowo_klucz = słowo_klucz
         self.tabela = self.utworz_tabele(słowo_klucz)
-        self.szybki_test()
+        self.test_tabeli()
         
 
     """
@@ -34,7 +36,7 @@ class Szyfr:
 
         # Etap 3
         for numer_wiersza in range(len(słowo_klucz)):
-            tabela[numer_wiersza][0]=słowo_klucz[numer_wiersza]
+            tabela[numer_wiersza][0] = słowo_klucz[numer_wiersza]
 
         # Etap 4
         for numer_wiersza in range(len(słowo_klucz)):
@@ -114,18 +116,18 @@ class Szyfr:
         słowa = tekst_do_zaszyfrowania.split()
         numer_słowa = 0
         for słowo in słowa:
-            numer_znaku=0
+            numer_znaku = 0
             for znak in słowo:
                 wszystkie_pozycje = self.znajdz_wszystkie_pozycje(znak)
                 kolumna, wiersz = random.choice(wszystkie_pozycje)
-                zaszyfrowany_tekst+=f"{kolumna}x{wiersz}"
+                zaszyfrowany_tekst += f"{kolumna}x{wiersz}"
                 # Dodawanie spacji pomiędzy znakami (oprócz ostatniego)
                 if numer_znaku != (len(słowo)-1):
-                    zaszyfrowany_tekst+=" "
+                    zaszyfrowany_tekst += " "
                 numer_znaku += 1
             # Dodawanie tabulatora pomiędzy słowami (oprócz ostatniego)
             if numer_słowa != (len(słowa)-1):
-                    zaszyfrowany_tekst+="\t"
+                    zaszyfrowany_tekst += "\t"
             numer_słowa += 1
         return zaszyfrowany_tekst
 
@@ -162,10 +164,17 @@ class Szyfr:
                 wiersz = int(wiersz)
                 odszyfrowany_tekst += tabela[wiersz-1][kolumna-1]
             if numer_wyrazu != (len(wyrazy)-1):
-                    odszyfrowany_tekst+=" "
+                    odszyfrowany_tekst += " "
             numer_wyrazu += 1
         return odszyfrowany_tekst
+    
+    """
+    Testuje poprawność wykonywania się kodu w danych warunkach (test syntetyczny)
+    """
     def szybki_test(self):
+        self.alfabet = "ABCDEFGHIJKLMNOPRSTUWYZ"
+        self.słowo_klucz = "KAROLINKA"
+        self.tabela = self.utworz_tabele(self.słowo_klucz)
         if self.odszyfruj(self.szyfruj("HARCERZ I HARCERKA")) == "HARCERZ I HARCERKA":
             if self.debug:
                 print("Szybki test: OK")
@@ -183,9 +192,25 @@ class Szyfr:
                 print(self.odszyfruj(test))
             raise Exception("Szybki test się nie powiódł! Program nie działa prawidłowo! Zabraniam użycia do momentu naprawy!")
 
+    """
+    Testuje czy tabela wypełnia cały alfabet
+    """
+    def test_tabeli(self):
+        for litera in self.alfabet:
+            if len(self.znajdz_wszystkie_pozycje(litera)) == 0:
+                if self.debug:
+                    print("Test tabeli: Not OK!")
+                    print("Słowo klucz:")
+                    print(repr(self.słowo_klucz))
+                    print("Tabela:")
+                    [print(x) for x in self.tabela]
+                raise Exception("Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.")
+        print("Test tabeli: OK")
+        
+
 
 # TESTY
-testowy_obiekt = Szyfr("KAROLINKA")
+testowy_obiekt = Szyfr("KAROLINKA", debug = False)
 
 # TEST 1
 if testowy_obiekt.odszyfruj(testowy_obiekt.szyfruj("HARCERZ I HARCERKA")) == "HARCERZ I HARCERKA":
