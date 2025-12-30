@@ -112,6 +112,8 @@ class Szyfr:
     """
     def szyfruj(self, tekst_do_zaszyfrowania: str):
         tekst_do_zaszyfrowania = tekst_do_zaszyfrowania.upper()
+        tekst_do_zaszyfrowania = tekst_do_zaszyfrowania.replace("\n", " ")
+        self.test_tekst_do_zaszyfrowania(tekst_do_zaszyfrowania)
         zaszyfrowany_tekst = ""
         słowa = tekst_do_zaszyfrowania.split()
         numer_słowa = 0
@@ -206,8 +208,20 @@ class Szyfr:
                     [print(x) for x in self.tabela]
                 raise Exception("Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.")
         print("Test tabeli: OK")
-        
 
+    def test_tekst_do_zaszyfrowania(self, tekst_do_zaszyfrowania):
+        for znak in tekst_do_zaszyfrowania:
+            if znak not in self.alfabet and znak not in [" "]:
+                if self.debug:
+                    print("Test tekstu do zaszyfrowania: Not OK!")
+                    print("Słowo klucz:")
+                    print(repr(self.słowo_klucz))
+                    print("Tabela:")
+                    [print(x) for x in self.tabela]
+                    print("Tekst do zaszyfrowania:")
+                    print(repr(tekst_do_zaszyfrowania))
+                raise Exception(f'Test tekstu do zaszyfrowania się nie powiódł! Znak "{repr(znak)}" nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
+        print("Test tekstu do zaszyfrowania: OK")
 
 # TESTY
 testowy_obiekt = Szyfr("KAROLINKA", debug = False)
