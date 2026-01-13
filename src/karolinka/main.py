@@ -207,7 +207,8 @@ class Szyfr:
                     print("Tabela:")
                     [print(x) for x in self.tabela]
                 raise Exception("Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.")
-        print("Test tabeli: OK")
+        if self.debug:
+            print("Test tabeli: OK")
 
     def test_tekst_do_zaszyfrowania(self, tekst_do_zaszyfrowania):
         for znak in tekst_do_zaszyfrowania:
@@ -221,7 +222,8 @@ class Szyfr:
                     print("Tekst do zaszyfrowania:")
                     print(repr(tekst_do_zaszyfrowania))
                 raise Exception(f'Test tekstu do zaszyfrowania się nie powiódł! Znak "{repr(znak)}" nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
-        print("Test tekstu do zaszyfrowania: OK")
+        if self.debug:
+            print("Test tekstu do zaszyfrowania: OK")
 
 # TESTY
 testowy_obiekt = Szyfr("KAROLINKA", debug = False)
