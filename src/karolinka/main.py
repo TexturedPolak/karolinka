@@ -113,7 +113,6 @@ class Szyfr:
     def szyfruj(self, tekst_do_zaszyfrowania: str):
         tekst_do_zaszyfrowania = tekst_do_zaszyfrowania.upper()
         tekst_do_zaszyfrowania = tekst_do_zaszyfrowania.replace("\n", " ")
-        self.test_tekst_do_zaszyfrowania(tekst_do_zaszyfrowania)
         zaszyfrowany_tekst = ""
         słowa = tekst_do_zaszyfrowania.split()
         numer_słowa = 0
@@ -121,6 +120,16 @@ class Szyfr:
             numer_znaku = 0
             for znak in słowo:
                 wszystkie_pozycje = self.znajdz_wszystkie_pozycje(znak)
+                if len(wszystkie_pozycje) == 0:
+                    if self.debug:
+                        print("Test tekstu do zaszyfrowania: Not OK!")
+                        print("Słowo klucz:")
+                        print(repr(self.słowo_klucz))
+                        print("Tabela:")
+                        [print(x) for x in self.tabela]
+                        print("Tekst do zaszyfrowania:")
+                        print(repr(tekst_do_zaszyfrowania))
+                    raise Exception(f'Błąd szyfrowanej wiadomości. Znak "{repr(znak)}" nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
                 kolumna, wiersz = random.choice(wszystkie_pozycje)
                 zaszyfrowany_tekst += f"{kolumna}x{wiersz}"
                 # Dodawanie spacji pomiędzy znakami (oprócz ostatniego)
@@ -131,6 +140,8 @@ class Szyfr:
             if numer_słowa != (len(słowa)-1):
                     zaszyfrowany_tekst += "\t"
             numer_słowa += 1
+        if self.debug:
+            print("Test tekstu do zaszyfrowania: OK")
         return zaszyfrowany_tekst
 
     """
@@ -164,10 +175,22 @@ class Szyfr:
                 kolumna, wiersz = litera.split("x")
                 kolumna = int(kolumna)
                 wiersz = int(wiersz)
+                if kolumna > len(self.słowo_klucz) or wiersz > len(self.słowo_klucz):
+                    if self.debug:
+                        print("Test tekstu do odszyfrowania: Not OK!")
+                        print("Słowo klucz:")
+                        print(repr(self.słowo_klucz))
+                        print("Tabela:")
+                        [print(x) for x in self.tabela]
+                        print("Tekst do odszyfrowania:")
+                        print(repr(tekst_do_odszyfrowania))
+                    raise Exception("Błąd zaszyfrowanej wiadomości. Zaszyfrowana wiadomość na 120% nie jest zaszyfrowana tym słowem klucz.")
                 odszyfrowany_tekst += tabela[wiersz-1][kolumna-1]
             if numer_wyrazu != (len(wyrazy)-1):
                     odszyfrowany_tekst += " "
             numer_wyrazu += 1
+        if self.debug:
+            print("Test tekstu do odszyfrowania: OK")
         return odszyfrowany_tekst
     
     """
@@ -209,22 +232,7 @@ class Szyfr:
                 raise Exception("Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.")
         if self.debug:
             print("Test tabeli: OK")
-
-    def test_tekst_do_zaszyfrowania(self, tekst_do_zaszyfrowania):
-        for znak in tekst_do_zaszyfrowania:
-            if znak not in self.alfabet and znak not in [" "]:
-                if self.debug:
-                    print("Test tekstu do zaszyfrowania: Not OK!")
-                    print("Słowo klucz:")
-                    print(repr(self.słowo_klucz))
-                    print("Tabela:")
-                    [print(x) for x in self.tabela]
-                    print("Tekst do zaszyfrowania:")
-                    print(repr(tekst_do_zaszyfrowania))
-                raise Exception(f'Test tekstu do zaszyfrowania się nie powiódł! Znak "{repr(znak)}" nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
-        if self.debug:
-            print("Test tekstu do zaszyfrowania: OK")
-
+               
 # TESTY
 testowy_obiekt = Szyfr("KAROLINKA", debug = False)
 

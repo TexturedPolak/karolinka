@@ -47,6 +47,7 @@ Słowo PYTHON wygląda zaszyfrowane tak: ```2x4 6x3 9x8 8x2 7x6 4x8```
 ## class Szyfr
 
 ```python
+from karolinka import Szyfr
 nowy_szyfr = Szyfr("KAROLINKA")
 ```
 
@@ -55,6 +56,7 @@ Tworzy nowy obiekt, przechowujący tabelę potrzebną do szyfrowania i odszyfrow
 ### func szyfruj(tekst_do_zaszyfrowania)
 
 ```python
+from karolinka import Szyfr
 nowy_szyfr = Szyfr("KAROLINKA")
 nowy_szyfr.szyfruj("HARCERZ I HARCERKA")
 ```
@@ -75,6 +77,7 @@ Wyjście:
 ### func odszyfruj(tekst_do_odszyfrowania)
 
 ```python
+from karolinka import Szyfr
 nowy_szyfr = Szyfr("KAROLINKA")
 nowy_szyfr.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2")
 ```
@@ -94,7 +97,7 @@ Wyjście:
 
 ## Błędy:
 
-### Exception: Test tekstu do zaszyfrowania się nie powiódł! Znak (twój znak) nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.
+### Exception: Błąd szyfrowanej wiadomości. Znak (twój znak) nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.
 
 Dany znak który znajduje się w tekście do zaszyfrowania nie znajduje się w alfabecie, więc nie można go zaszyfrować w żaden sposób.
 Wyjątkami są dwa znaki: 
@@ -105,13 +108,21 @@ Wyjątkami są dwa znaki:
 Rozwiązania:
 1. Dodaj dany znak do alfabetu, podając swój alfabet jako opcjonalny argument klasy Szyfr:
 ```python
+from karolinka import Szyfr
 nowy_szyfr = Szyfr("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
 ```
 2. Zmień ten znak w tekście na jakiś podobny.
 3. Usuń problematyczny znak z tekstu.
 
-### Exception: Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.
+### Exception: Błąd zaszyfrowanej wiadomości. Zaszyfrowana wiadomość na 120% nie jest zaszyfrowana tym słowem klucz.
 
+Próbujesz odszyfrować daną wiadomość, ale słowo klucz którego użyłeś na pewno nie służyło do zaszyfrowania tej wiadomości.
+
+Rozwiązania:
+1. Od osoby od której otrzymałeś zaszyfrowaną wiadomość zdobądź poprawne słowo klucz.
+2. Być może użyto innego szyfru... i nic na to nie poradzę.
+
+### Exception: Test tabeli się nie powiódł! Słowo klucz którego użyłeś nie wypełnia całego alfabetu. Użyj dłuższego słowa klucz lub innego alfabetu.
 
 Oznacza to co pisze - ale tłumaczac bardziej - oznacza to, że w tabeli która zastała utworzona na podstawie słowa klucz nie znajdują się wszystkie litery alfabetu, przez co zaszyfrowanie danej informacji w której jest litera, która jest w alfabecie, ale nie jest w tabeli skończy się błędem.
 
@@ -119,6 +130,7 @@ Rozwiązania:
 1. Dłuższe słowo klucz - najlepiej jakby było to normalne słowo, a nie ciąg przypadkowych liter.
 2. Jeśli potrzebujesz tylko paru liter - możesz podać własny alfabet jako opcjonalny argument klasy Szyfr:
 ```python
+from karolinka import Szyfr
 nowy_szyfr = Szyfr("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
 ```
 
@@ -129,6 +141,7 @@ Oznacza to, że z jakiegoś powodu program przestał poprawnie działać, a jeg
 Rozwiązania: 
 1. Skontaktuj się z twórcą programu. Uruchom program w trybie debugowania i wyślij informacje podane w konsoli:
 ```python
+from karolinka import Szyfr
 słowo_klucz=? # (twoje słowo klucz)
 nowy_szyfr = Szyfr(słowo_klucz, debug=True)
 ```
@@ -138,6 +151,7 @@ nowy_szyfr = Szyfr(słowo_klucz, debug=True)
 Rozwiązania: 
 1. Skontaktuj się z twórcą programu. Uruchom program w trybie debugowania i wyślij informacje podane w konsoli:
 ```python
+from karolinka import Szyfr
 słowo_klucz=? # (twoje słowo klucz)
 nowy_szyfr = Szyfr(słowo_klucz, debug=True)
 ```
