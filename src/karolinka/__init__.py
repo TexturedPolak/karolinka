@@ -1,1 +1,1 @@
-from .main import Szyfr
+from .karolinka import Karolinka
