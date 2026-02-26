@@ -38,31 +38,31 @@ Słowo PYTHON wygląda zaszyfrowane tak: ```2x4 6x3 9x8 8x2 7x6 4x8```
 
 1. Zaszyfrowane litery są oddzielone od siebie znakiem spacji
 
-2. Zaszyfrowane słowa są oddzielone od siebie znakiem tabulacji lub inaczej TAB
+2. Zaszyfrowane słowa są oddzielone od siebie znakiem końca linii (znak \\n lub potocznie ENTER)
 
 3. W przypadku wielu pozycji danej litery w tabeli, automatyzator pseudolosuje jedną z możliwych pozycji.
 
 # Dokumentacja
 
-## class Szyfr
+## class Karolinka
 
 ```python
-from karolinka import Szyfr
-nowy_szyfr = Szyfr("KAROLINKA")
+from karolinka import Karolinka
+nowy_szyfr = Karolinka("KAROLINKA")
 ```
 
 Tworzy nowy obiekt, przechowujący tabelę potrzebną do szyfrowania i odszyfrowywania.
 
-### func szyfruj(tekst_do_zaszyfrowania)
+### func zaszyfruj(tekst_do_zaszyfrowania)
 
 ```python
-from karolinka import Szyfr
-nowy_szyfr = Szyfr("KAROLINKA")
-nowy_szyfr.szyfruj("HARCERZ I HARCERKA")
+from karolinka import Karolinka
+nowy_szyfr = Karolinka("KAROLINKA")
+nowy_szyfr.zaszyfruj("HARCERZ I HARCERKA")
 ```
 
-Szyfruje tekst_do_zaszyfrowania zgodnie z [założeniami](README.md).
-Zwraca zaszyfrowany tekst zgodnie z [założeniami](README.md).
+Szyfruje tekst_do_zaszyfrowania zgodnie z założeniami.
+Zwraca zaszyfrowany tekst zgodnie z założeniami.
 
 Wejście:
 
@@ -72,24 +72,24 @@ Wejście:
 
 Wyjście:
 
-"8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
+"8x2 1x9 7x8 3x9 5x9 7x1 7x3\n9x9\n8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
 
 ### func odszyfruj(tekst_do_odszyfrowania)
 
 ```python
-from karolinka import Szyfr
-nowy_szyfr = Szyfr("KAROLINKA")
-nowy_szyfr.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2")
+from karolinka import Karolinka
+nowy_szyfr = Karolinka("KAROLINKA")
+nowy_szyfr.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\n9x9\n8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2")
 ```
 
-Odszyfrowuje tekst_do_odszyfrowania zgodnie z [założeniami](README.md).
-Zwraca odszyfrowany tekst zgodnie z [założeniami](README.md).
+Odszyfrowuje tekst_do_odszyfrowania zgodnie z założeniami.
+Zwraca odszyfrowany tekst zgodnie z założeniami.
 
 Wejście:
 
 "KAROLINKA",
 
-"8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
+"8x2 1x9 7x8 3x9 5x9 7x1 7x3\n9x9\n8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2"
 
 Wyjście:
 
@@ -106,10 +106,10 @@ Wyjątkami są dwa znaki:
 - i znak nowej linii, enter, \n (jest zamieniany na znak spacji)
 
 Rozwiązania:
-1. Dodaj dany znak do alfabetu, podając swój alfabet jako opcjonalny argument klasy Szyfr:
+1. Dodaj dany znak do alfabetu, podając swój alfabet jako opcjonalny argument klasy Karolinka:
 ```python
-from karolinka import Szyfr
-nowy_szyfr = Szyfr("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
+from karolinka import Karolinka
+nowy_szyfr = Karolinka("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
 ```
 2. Zmień ten znak w tekście na jakiś podobny.
 3. Usuń problematyczny znak z tekstu.
@@ -128,10 +128,10 @@ Oznacza to co pisze - ale tłumaczac bardziej - oznacza to, że w tabeli która 
 
 Rozwiązania: 
 1. Dłuższe słowo klucz - najlepiej jakby było to normalne słowo, a nie ciąg przypadkowych liter.
-2. Jeśli potrzebujesz tylko paru liter - możesz podać własny alfabet jako opcjonalny argument klasy Szyfr:
+2. Jeśli potrzebujesz tylko paru liter - możesz podać własny alfabet jako opcjonalny argument klasy Karolinka:
 ```python
-from karolinka import Szyfr
-nowy_szyfr = Szyfr("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
+from karolinka import Karolinka
+nowy_szyfr = Karolinka("KAROLINKA", alfabet="ABCDEFGHIJKLMNOPRSTUWYZ")
 ```
 
 ### Exception: (wstaw nazwę testu) się nie powiódł! Program nie działa prawidłowo! Zabraniam użycia do momentu naprawy!
@@ -141,9 +141,9 @@ Oznacza to, że z jakiegoś powodu program przestał poprawnie działać, a jeg
 Rozwiązania: 
 1. Skontaktuj się z twórcą programu. Uruchom program w trybie debugowania i wyślij informacje podane w konsoli:
 ```python
-from karolinka import Szyfr
+from karolinka import Karolinka
 słowo_klucz=? # (twoje słowo klucz)
-nowy_szyfr = Szyfr(słowo_klucz, debug=True)
+nowy_szyfr = Karolinka(słowo_klucz, debug=True)
 ```
 
 ### Inne?
@@ -151,7 +151,7 @@ nowy_szyfr = Szyfr(słowo_klucz, debug=True)
 Rozwiązania: 
 1. Skontaktuj się z twórcą programu. Uruchom program w trybie debugowania i wyślij informacje podane w konsoli:
 ```python
-from karolinka import Szyfr
+from karolinka import Karolinka
 słowo_klucz=? # (twoje słowo klucz)
-nowy_szyfr = Szyfr(słowo_klucz, debug=True)
+nowy_szyfr = Karolinka(słowo_klucz, debug=True)
 ```
