@@ -3,3 +3,5 @@ __pycache__/
 src/karolinka.egg-info/
 dist/
 .env/
+docs/build
+docs/source/generated
