@@ -1,11 +1,12 @@
 import random
 from .karolinka_types import Tabela
+import warnings
 
 
 
 class Karolinka:
     """
-    Szyfr Karolinka
+    Szyfr Karolinka - https://karolinka.readthedocs.io/pl/0.4.0
     """
 
 
@@ -13,7 +14,7 @@ class Karolinka:
         pass
 
 
-    def __init__(self, słowo_klucz: str, alfabet: str = "ABCDEFGHIJKLMNOPRSTUWYZ", debug: bool = False): 
+    def __init__(self, słowo_klucz: str = "KAROLINKA", alfabet: str = "ABCDEFGHIJKLMNOPRSTUWYZ", debug: bool = False): 
         self.debug = debug
         # Szybki test musi być uruchomiany od razu po debug - inaczej nadpisze alfabet, słowo_klucz i tabelę
         self._szybki_test() 
@@ -135,9 +136,11 @@ class Karolinka:
                         [print(x) for x in self.tabela]
                         print("Tekst do zaszyfrowania:")
                         print(repr(tekst_do_zaszyfrowania))
-                    raise Exception(f'Błąd szyfrowanej wiadomości. Znak "{repr(znak)}" nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
-                kolumna, wiersz = random.choice(wszystkie_pozycje)
-                zaszyfrowany_tekst += f"{kolumna}x{wiersz}"
+                    warnings.warn(f'Ostrzeżenie szyfrowanej wiadomości. Znak {repr(znak)} nie znajduje się w podanym alfabecie. Usuń/zmień ten znak lub dodaj go do alfabetu.')
+                    zaszyfrowany_tekst += znak
+                else:
+                    kolumna, wiersz = random.choice(wszystkie_pozycje)
+                    zaszyfrowany_tekst += f"{kolumna}x{wiersz}"
                 # Dodawanie spacji pomiędzy znakami (oprócz ostatniego)
                 if numer_znaku != (len(słowo)-1):
                     zaszyfrowany_tekst += " "
@@ -176,20 +179,24 @@ class Karolinka:
         for wyraz in wyrazy:
             litery = wyraz.split()
             for litera in litery:
-                kolumna, wiersz = litera.split("x")
-                kolumna = int(kolumna)
-                wiersz = int(wiersz)
-                if kolumna > len(self.słowo_klucz) or wiersz > len(self.słowo_klucz):
-                    if self.debug:
-                        print("Test tekstu do odszyfrowania: Not OK!")
-                        print("Słowo klucz:")
-                        print(repr(self.słowo_klucz))
-                        print("Tabela:")
-                        [print(x) for x in self.tabela]
-                        print("Tekst do odszyfrowania:")
-                        print(repr(tekst_do_odszyfrowania))
-                    raise Exception("Błąd zaszyfrowanej wiadomości. Zaszyfrowana wiadomość na 120% nie jest zaszyfrowana tym słowem klucz.")
-                odszyfrowany_tekst += tabela[wiersz-1][kolumna-1]
+                if len(litera) > 1:
+                    kolumna, wiersz = litera.split("x")
+                    kolumna = int(kolumna)
+                    wiersz = int(wiersz)
+                    if kolumna > len(self.słowo_klucz) or wiersz > len(self.słowo_klucz):
+                        if self.debug:
+                            print("Test tekstu do odszyfrowania: Not OK!")
+                            print("Słowo klucz:")
+                            print(repr(self.słowo_klucz))
+                            print("Tabela:")
+                            [print(x) for x in self.tabela]
+                            print("Tekst do odszyfrowania:")
+                            print(repr(tekst_do_odszyfrowania))
+                        raise Exception("Błąd zaszyfrowanej wiadomości. Zaszyfrowana wiadomość na 120% nie jest zaszyfrowana tym słowem klucz.")
+                    odszyfrowany_tekst += tabela[wiersz-1][kolumna-1]
+                else:
+                    warnings.warn(f"Ostrzeżenie zaszyfrowanej wiadomości. Znak {repr(litera)} nie był zaszyfrowany, więc go przepisano.")
+                    odszyfrowany_tekst += litera
             if numer_wyrazu != (len(wyrazy)-1):
                     odszyfrowany_tekst += " "
             numer_wyrazu += 1
