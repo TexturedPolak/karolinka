@@ -19,3 +19,9 @@ odszyfrowana_wiad = nowy_szyfr.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 
 ```
 
 Więcej w [dokumentacji](https://karolinka.readthedocs.io/pl/)
+
+## Nie jesteś programistą? Chcesz tylko tego łatwo użyć?
+
+Gotowe rozwiązanie: https://github.com/TexturedPolak/karolinka-frontend
+
+lub: https://texturedpolak.github.io/karolinka-frontend/
