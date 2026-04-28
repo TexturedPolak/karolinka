@@ -1,4 +1,4 @@
-# Karolinkowy szyfrator czyli automatyzacja harcerskiego szyfru
+# Karolinkowy szyfrator czyli automatyzacja harcerskiego szyfru (i nie tylko tego)
 
 (i nie, nie jestem harcerzem)
 
@@ -13,15 +13,24 @@ python -m pip install karolinka
 ```python
 from karolinka import Karolinka
 
-nowy_szyfr = Karolinka("KAROLINKA")
-zaszyfrowana_wiad = nowy_szyfr.zaszyfruj("HARCERZ I HARCERKA")
-odszyfrowana_wiad = nowy_szyfr.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2")
+karolinka = Karolinka("KAROLINKA")
+zaszyfrowana_wiad = karolinka.zaszyfruj("HARCERZ I HARCERKA")
+odszyfrowana_wiad = karolinka.odszyfruj("8x2 1x9 7x8 3x9 5x9 7x1 7x3\t9x9\t8x2 8x3 7x1 3x9 5x9 1x3 1x1 1x2")
+```
+
+```python
+from karolinka import Cezar
+
+przesuniecie = 4
+cezar = Cezar(przesuniecie)
+zaszyfrowana_wiad = cezar.zaszyfruj("HARCERZ I HARCERKA")
+odszyfrowana_wiad = cezar.odszyfruj("LEWGIWD M LEWGIWOE")
 ```
 
 Więcej w [dokumentacji](https://karolinka.readthedocs.io/pl/)
 
-## Nie jesteś programistą? Chcesz tylko tego łatwo użyć?
+## Nie jesteś programistą? Chcesz tylko tego łatwo użyć? (Tylko szyfr karolinka)
 
-Gotowe rozwiązanie: https://github.com/TexturedPolak/karolinka-frontend
+Gotowe rozwiązanie: <https://github.com/TexturedPolak/karolinka-frontend>
 
-lub: https://texturedpolak.github.io/karolinka-frontend/
+lub: <https://texturedpolak.github.io/karolinka-frontend/>

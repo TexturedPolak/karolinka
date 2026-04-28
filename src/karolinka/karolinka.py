@@ -6,7 +6,7 @@ import warnings
 
 class Karolinka:
     """
-    Szyfr Karolinka - https://karolinka.readthedocs.io/pl/0.4.0
+    Szyfr Karolinka - https://karolinka.readthedocs.io/pl/0.5.0
     """
 
 

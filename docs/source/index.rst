@@ -19,3 +19,12 @@ Witaj na stronie dokumentacji
    karolinka/uzytkowanie
    karolinka/bugi
 
+.. toctree::
+   :maxdepth: -1
+   :caption: Szyfr cezar
+
+   cezar/o-szyfrze
+   cezar/zalozenia
+   cezar/uzytkowanie
+   cezar/bugi
+

@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "karolinka"
-version = "0.4.0"
+version = "0.5.0"
 authors = [
   { name="Rafał Kiepiela (TexturedPolak)", email="rafal200725@gmail.com" },
 ]
-description = "Implementacja harcerskiego szyfru - Karolinki"
+description = "Implementacja harcerskiego szyfru - Karolinki (i nie tylko)"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [

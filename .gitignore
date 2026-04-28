@@ -6,3 +6,4 @@ dist/
 docs/build
 docs/source/generated
 tests/
+todo.md

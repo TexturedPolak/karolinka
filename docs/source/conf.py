@@ -6,7 +6,7 @@ project = 'karolinka'
 copyright = '2025-2026 Rafał Kiepiela (TexturedPolak)'
 author = 'Rafał Kiepiela (TexturedPolak)'
 
-version = '0.3.0'
+version = '0.5.0'
 
 # -- General configuration
 
