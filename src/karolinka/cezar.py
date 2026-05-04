@@ -2,7 +2,7 @@ import warnings
 
 class Cezar:
     """
-    Szyfr Cezara - https://karolinka.readthedocs.io/pl/0.5.0
+    Szyfr Cezara - https://karolinka.readthedocs.io/pl/0.6.0
     """
 
     def __init__(self, przesuniecie: int, alfabet: str = "ABCDEFGHIJKLMNOPRSTUWYZ", debug: bool = False):
