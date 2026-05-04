@@ -28,3 +28,10 @@ Witaj na stronie dokumentacji
    cezar/uzytkowanie
    cezar/bugi
 
+.. toctree::
+   :maxdepth: -1
+   :caption: Szyfr komórkowy
+
+   komorkowy/o-szyfrze
+   komorkowy/uzytkowanie
+   komorkowy/bugi
